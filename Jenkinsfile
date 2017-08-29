@@ -6,7 +6,6 @@ pipeline {
     	    buildDiscarder(logRotator(numToKeepStr:'10'))   	    // Keep only the 10 most recent builds 
   	}
 	
-	parameter
   	
   	environment {
   		SONAR = credentials('sonar')						    // Sonar Credentials
