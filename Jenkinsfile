@@ -2,15 +2,17 @@ pipeline {
 
 	agent any
     
-    options {
+    	options {
     	    buildDiscarder(logRotator(numToKeepStr:'10'))   	    // Keep only the 10 most recent builds 
   	}
+	
+	parameter
   	
   	environment {
   		SONAR = credentials('sonar')						    // Sonar Credentials
   		SONAR_SERVER = "http://sonar.beedemo.net:9000"		// Sonar Server Address
   		DOCKERHUB = credentials('dockerhub')				    // Docker Hub Credentials
-		DOCKERHUB_REPO = "craigcloudbees"					// Repo on Docker Hub to push our image to
+		DOCKERHUB_REPO = "pwolf/jenkins-intro"					// Repo on Docker Hub to push our image to
 		APP_VERSION = "0.0.1"								// Version of the app, used to tag the Docker image
 		DOCKER_IMG_NAME = "sample-rest-server"				// Name of our Docker image
 		CONTAINER_ADDRESS = "localhost"						// Address at which running container can be reached
@@ -75,12 +77,12 @@ pipeline {
 		// Checkpoints are currently only supported on CloudBees Jenkins Enterprise
       	// using the following Enterprise plugin:
       	// https://go.cloudbees.com/docs/cloudbees-documentation/cje-user-guide/index.html#workflow-sect-checkpoint
-      	stage("Checkpoint") {
-     		agent none
-      		steps {
-        		  checkpoint 'Completed Docker Image Testing'
-    		    }
-        	}
+      	//stage("Checkpoint") {
+     	//	agent none
+      	//	steps {
+        //		  checkpoint 'Completed Docker Image Testing'
+    	//	    }
+        //	}
 
 		// Pushes the Docker image to Docker Hub - Master only
 		stage('Push Docker Image') { 
